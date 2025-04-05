@@ -127,6 +127,18 @@ function ThemeColor({ resumeInfo }) {
       name: "Gradient Accent",
       category: "creative",
       previewUrl: "https://res.cloudinary.com/dja7l3iq8/image/upload/v1743527045/biu6siaj8smice1ijjnn.png" 
+    },
+    {
+      id: "bold-impact",
+      name: "Bold Impact",
+      category: "modern",
+      previewUrl: "https://res.cloudinary.com/dja7l3iq8/image/upload/v1743697056/q1bi1rcgmy2phbjyxyz2.png" 
+    },
+    {
+      id: "split-frame",
+      name: "Split Frame",
+      category: "creative",
+      previewUrl: "https://res.cloudinary.com/dja7l3iq8/image/upload/v1743697141/npgbqssxd07j13tvopyj.png" 
     }
   ];
 

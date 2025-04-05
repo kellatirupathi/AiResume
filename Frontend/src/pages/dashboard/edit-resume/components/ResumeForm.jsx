@@ -7,7 +7,7 @@ import Experience from "./form-components/Experience";
 import Education from "./form-components/Education";
 import Skills from "./form-components/Skills";
 import Project from "./form-components/Project";
-import ResumeScore from "./ResumeScore";
+import FloatingResumeScore from "./FloatingResumeScore"; // Import the new component
 import { 
   ArrowLeft, 
   ArrowRight, 
@@ -132,8 +132,8 @@ function ResumeForm() {
         </div>
       </div>
       
-      {/* Resume Score Component - now below the header */}
-      <ResumeScore resumeInfo={resumeInfo} />
+      {/* Replaced the standard ResumeScore with the FloatingResumeScore component */}
+      <FloatingResumeScore resumeInfo={resumeInfo} />
 
       {/* Section tabs - now with arrows instead of numbers */}
       <div className="hidden sm:flex justify-start overflow-x-auto py-2 no-scrollbar">

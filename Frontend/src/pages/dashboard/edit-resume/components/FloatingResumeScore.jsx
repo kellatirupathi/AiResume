@@ -97,7 +97,8 @@ const FloatingResumeScore = ({ resumeInfo }) => {
       resumeInfo.address
     ];
     const filledPersonalFields = personalFields.filter(field => field && field.trim().length > 0).length;
-    scores.personal = Math.round((filledPersonalFields / personalFields.length) * 100);
+    // Only calculate percentage if there are filled fields
+    scores.personal = personalFields.length > 0 ? Math.round((filledPersonalFields / personalFields.length) * 100) : 0;
     
     // Summary - check if exists and has reasonable length
     if (resumeInfo.summary && resumeInfo.summary.trim()) {
@@ -106,6 +107,8 @@ const FloatingResumeScore = ({ resumeInfo }) => {
       else if (summaryLength > 200) scores.summary = 85;
       else if (summaryLength > 100) scores.summary = 75;
       else scores.summary = 60;
+    } else {
+      scores.summary = 0; // Set to 0 if no summary exists
     }
     
     // Experience - check number and quality of entries
@@ -130,6 +133,8 @@ const FloatingResumeScore = ({ resumeInfo }) => {
       // Average quality score across all experiences
       const avgQuality = expQuality / expCount;
       scores.experience = Math.min(Math.round(avgQuality * 100), 100);
+    } else {
+      scores.experience = 0; // Set to 0 if no experience entries exist
     }
     
     // Education - check entries
@@ -150,6 +155,8 @@ const FloatingResumeScore = ({ resumeInfo }) => {
       
       const avgQuality = eduQuality / eduCount;
       scores.education = Math.min(Math.round(avgQuality * 100), 100);
+    } else {
+      scores.education = 0; // Set to 0 if no education entries exist
     }
     
     // Skills - check number and ratings
@@ -165,6 +172,8 @@ const FloatingResumeScore = ({ resumeInfo }) => {
       
       // Bonus for having ratings
       if (hasRatings) scores.skills = Math.min(scores.skills + 10, 100);
+    } else {
+      scores.skills = 0; // Set to 0 if no skills entries exist
     }
     
     // Projects - check entries and details
@@ -185,6 +194,8 @@ const FloatingResumeScore = ({ resumeInfo }) => {
       
       const avgQuality = projQuality / projCount;
       scores.projects = Math.min(Math.round(avgQuality * 100), 100);
+    } else {
+      scores.projects = 0; // Set to 0 if no projects entries exist
     }
     
     // Calculate total score - weighted average of all sections
@@ -216,7 +227,9 @@ const FloatingResumeScore = ({ resumeInfo }) => {
       scores.feedback.push("Complete your personal details section to improve your resume");
     }
     
-    if (scores.summary < 70) {
+    if (scores.summary === 0) {
+      scores.feedback.push("Add a professional summary to highlight your career goals and strengths");
+    } else if (scores.summary < 70) {
       scores.feedback.push("Enhance your professional summary with more specific details about your career goals and strengths");
     }
     
@@ -230,7 +243,9 @@ const FloatingResumeScore = ({ resumeInfo }) => {
       scores.feedback.push("Add your educational background to strengthen your resume");
     }
     
-    if (!resumeInfo.skills || resumeInfo.skills.length < 5) {
+    if (!resumeInfo.skills || resumeInfo.skills.length === 0) {
+      scores.feedback.push("Add skills relevant to your target job to highlight your expertise");
+    } else if (resumeInfo.skills.length < 5) {
       scores.feedback.push("Add more skills relevant to your target job to highlight your expertise");
     }
     
@@ -259,34 +274,42 @@ const FloatingResumeScore = ({ resumeInfo }) => {
       
       Please analyze each section carefully and provide scores based on completeness, quality, and impact:
       
+      IMPORTANT: For any section that is completely empty (not filled in at all), assign a score of exactly 0%. Do not give any default minimum score.
+      
       For Personal Details:
+      - Score 0% if completely empty
       - Score 40-60% if only basic fields are filled 
       - Score 70-80% if most fields are complete
       - Score 90-100% if all fields are complete with professional contact information
       
       For Professional Summary:
-      - Score based on length, specificity, relevance, and impact
+      - Score 0% if completely empty
+      - Otherwise, score based on length, specificity, relevance, and impact
       - Evaluate whether it effectively communicates career goals and value proposition
       
       For Work Experience:
-      - Evaluate based on number of entries, detail level, use of action verbs, and quantifiable achievements
+      - Score 0% if completely empty
+      - Otherwise evaluate based on number of entries, detail level, use of action verbs, and quantifiable achievements
       - Higher scores for comprehensive descriptions with metrics and results
       
       For Education:
-      - Score based on completeness of degree information, dates, and relevant details
+      - Score 0% if completely empty
+      - Otherwise score based on completeness of degree information, dates, and relevant details
       
       For Skills:
-      - Evaluate based on number of skills, relevance, organization, and rating consistency
+      - Score 0% if completely empty
+      - Otherwise evaluate based on number of skills, relevance, organization, and rating consistency
       
       For Projects:
-      - Score based on detail level, technology descriptions, and connection to skills
+      - Score 0% if completely empty
+      - Otherwise score based on detail level, technology descriptions, and connection to skills
       
       Format your response exactly as a valid JSON object with the following structure:
       {
         "scores": {
           "personal": [0-100 number],
           "summary": [0-100 number],
-          "experience": [0-100 number],
+          "experience": [0-100 number], 
           "education": [0-100 number],
           "skills": [0-100 number],
           "projects": [0-100 number],
@@ -299,7 +322,7 @@ const FloatingResumeScore = ({ resumeInfo }) => {
         "suggestions": [array of specific, actionable improvement suggestions]
       }
       
-      Ensure your scores are fair but realistic reflections of the resume quality. The overall totalScore should be a weighted average (personal 15%, summary 15%, experience 25%, education 15%, skills 15%, projects 15%).
+      Ensure your scores are fair but realistic reflections of the resume quality. Remember to give a score of 0% to any completely empty sections. The overall totalScore should be a weighted average (personal 15%, summary 15%, experience 25%, education 15%, skills 15%, projects 15%).
       `;
       
       // Call AI API
@@ -340,6 +363,7 @@ const FloatingResumeScore = ({ resumeInfo }) => {
   }, [resumeInfo]);
 
   const getScoreColor = (score) => {
+    if (score === 0) return "bg-gray-300"; // Gray color for 0% score
     if (score >= 90) return "bg-green-500";
     if (score >= 75) return "bg-blue-500";
     if (score >= 60) return "bg-yellow-500";
@@ -347,6 +371,7 @@ const FloatingResumeScore = ({ resumeInfo }) => {
   };
 
   const getScoreDescription = (score) => {
+    if (score === 0) return "Not Started";
     if (score >= 90) return "Excellent";
     if (score >= 80) return "Very Good";
     if (score >= 70) return "Good";

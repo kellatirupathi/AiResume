@@ -1,7 +1,23 @@
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+[build]
+  command = "npm run build" # Command to build your Vite app
+  publish = "dist"         # Directory where the build output is located
+  environment = { NODE_VERSION = "18" } # Use Node 18 (adjust based on your package.json)
 
-[build.environment]
-  NODE_VERSION = "18" # Use the node version your project needs
+[dev]
+  command = "npm run dev" # Command to run locally for Netlify Dev (optional)
+
+[[redirects]]
+  from = "/api/*"
+  to = "https://[your-render-backend-url]/api/:splat" # Replace with your Render backend URL
+  status = 200
+  force = true
+  conditions = { Role = "user" }
+
+[[headers]]
+  # Optional: Add CORS headers if needed (though this is usually handled by the backend)
+  for = "/api/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "https://subtle-pegasus-79aaa-7.netlify.app"
+    Access-Control-Allow-Methods = "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS"
+    Access-Control-Allow-Headers = "Content-Type,Authorization"
+    Access-Control-Allow-Credentials = "true"

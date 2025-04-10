@@ -1,321 +1,4 @@
-// Ultimate advanced futuristic 3D robot icon with hyper-realistic animation
-  const RainbowBotIcon = () => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="40"
-      height="40"
-      viewBox="0 0 24 24"
-      style={{ 
-        filter: "drop-shadow(0px 2px 4px rgba(0,0,0,0.3))",
-      }}
-      className="robot-float"
-    >
-      {/* Advanced gradients and filters for hyper-realistic 3D effect */}
-      <defs>
-        {/* Base metal gradients */}
-        <linearGradient id="robotHead" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#8B5CF6" />
-          <stop offset="45%" stopColor="#6366F1" />
-          <stop offset="55%" stopColor="#4F46E5" />
-          <stop offset="100%" stopColor="#4338CA" />
-        </linearGradient>
-        
-        <linearGradient id="robotHeadHighlight" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#C4B5FD" stopOpacity="0.9" />
-          <stop offset="100%" stopColor="#A5B4FC" stopOpacity="0" />
-        </linearGradient>
-        
-        {/* Advanced eye gradients */}
-        <radialGradient id="robotEye" cx="50%" cy="50%" r="50%" fx="35%" fy="35%">
-          <stop offset="0%" stopColor="#BFDBFE" />
-          <stop offset="40%" stopColor="#60A5FA" />
-          <stop offset="80%" stopColor="#3B82F6" />
-          <stop offset="100%" stopColor="#2563EB" />
-        </radialGradient>
-        
-        <radialGradient id="eyeGlow" cx="50%" cy="50%" r="70%" fx="50%" fy="50%">
-          <stop offset="0%" stopColor="#93C5FD" stopOpacity="0.8" />
-          <stop offset="70%" stopColor="#60A5FA" stopOpacity="0.3" />
-          <stop offset="100%" stopColor="#3B82F6" stopOpacity="0" />
-        </radialGradient>
-        
-        <radialGradient id="powerCore" cx="50%" cy="50%" r="50%" fx="40%" fy="40%">
-          <stop offset="0%" stopColor="#FEF3C7" />
-          <stop offset="30%" stopColor="#FCD34D" />
-          <stop offset="70%" stopColor="#F59E0B" />
-          <stop offset="100%" stopColor="#D97706" />
-        </radialGradient>
-        
-        {/* Glow effects */}
-        <radialGradient id="robotGlow" cx="50%" cy="50%" r="70%" fx="50%" fy="50%">
-          <stop offset="0%" stopColor="#C4B5FD" stopOpacity="0.7" />
-          <stop offset="60%" stopColor="#8B5CF6" stopOpacity="0.3" />
-          <stop offset="100%" stopColor="#6366F1" stopOpacity="0" />
-        </radialGradient>
-        
-        {/* Advanced filters */}
-        <filter id="innerShadow" x="-50%" y="-50%" width="200%" height="200%">
-          <feGaussianBlur in="SourceAlpha" stdDeviation="1.5" result="blur" />
-          <feOffset dx="0.5" dy="0.5" in="blur" result="offsetBlur" />
-          <feComposite in="SourceAlpha" in2="offsetBlur" operator="out" result="innerShadow" />
-          <feFlood floodColor="#000" floodOpacity="0.3" result="color" />
-          <feComposite in="color" in2="innerShadow" operator="in" result="shadow" />
-          <feComposite in="SourceGraphic" in2="shadow" operator="over" />
-        </filter>
-        
-        <filter id="neonGlow" x="-20%" y="-20%" width="140%" height="140%">
-          <feFlood floodColor="#A5B4FC" floodOpacity="0.8" result="glow" />
-          <feComposite in="glow" in2="SourceGraphic" operator="in" result="coloredGlow" />
-          <feGaussianBlur in="coloredGlow" stdDeviation="2" result="blurredGlow" />
-          <feComposite in="blurredGlow" in2="SourceGraphic" operator="over" />
-        </filter>
-        
-        <filter id="holographicEffect" x="-20%" y="-20%" width="140%" height="140%">
-          <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="3" result="noise" />
-          <feDisplacementMap in="SourceGraphic" in2="noise" scale="2" xChannelSelector="R" yChannelSelector="G" />
-          <feGaussianBlur stdDeviation="0.3" />
-          <feComposite operator="in" in2="SourceGraphic" />
-        </filter>
-        
-        {/* Metallic texture */}
-        <pattern id="metalTexture" patternUnits="userSpaceOnUse" width="10" height="10">
-          <image href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMCIgaGVpZ2h0PSIxMCI+CjxyZWN0IHdpZHRoPSIxMCIgaGVpZ2h0PSIxMCIgZmlsbD0iIzMzMzMzMyIgb3BhY2l0eT0iMC4wMiIvPgo8L3N2Zz4=" x="0" y="0" width="10" height="10" />
-        </pattern>
-      </defs>
-      
-      {/* Background effects */}
-      <g className="glow-effect">
-        <ellipse cx="12" cy="12" rx="11" ry="10" fill="url(#robotGlow)" />
-        
-        {/* Energy field lines */}
-        <g opacity="0.3" className="hue-shift">
-          <path d="M3 8 C6 10, 18 10, 21 8" stroke="#A5B4FC" strokeWidth="0.2" fill="none" />
-          <path d="M3 12 C6 14, 18 14, 21 12" stroke="#A5B4FC" strokeWidth="0.2" fill="none" />
-          <path d="M3 16 C6 18, 18 18, 21 16" stroke="#A5B4FC" strokeWidth="0.2" fill="none" />
-        </g>
-      </g>
-      
-      {/* Robot head - hyper-realistic 3D effect */}
-      <g filter="url(#innerShadow)">
-        {/* Head casing with metallic texture */}
-        <rect x="4" y="3.5" width="16" height="11.5" rx="3" ry="3" fill="url(#robotHead)" stroke="#4338CA" strokeWidth="0.3" />
-        
-        {/* Metallic texture overlay */}
-        <rect x="4" y="3.5" width="16" height="11.5" rx="3" ry="3" fill="url(#metalTexture)" fillOpacity="0.1" />
-        
-        {/* Head panel seams */}
-        <path d="M7 3.5 L7 15 M17 3.5 L17 15" stroke="#4338CA" strokeWidth="0.2" opacity="0.5" />
-        <path d="M4 8 L20 8" stroke="#4338CA" strokeWidth="0.2" opacity="0.5" />
-        
-        {/* Highlight for 3D effect */}
-        <path d="M5 6 L19 6" stroke="url(#robotHeadHighlight)" strokeWidth="0.7" opacity="0.9" />
-        <path d="M7 4 A2 2 0 0 1 9 3.5" stroke="#C4B5FD" strokeWidth="0.2" opacity="0.7" />
-        <path d="M17 4 A2 2 0 0 0 15 3.5" stroke="#C4B5FD" strokeWidth="0.2" opacity="0.7" />
-      </g>
-      
-      {/* Advanced head details - circuit patterns and tech elements */}
-      <g opacity="0.9">
-        {/* Circuit patterns */}
-        <path d="M5 5.5h1.5M5 9h1M18 5.5h1.5M18 9h1" stroke="#A5B4FC" strokeWidth="0.3" />
-        <path d="M7.5 4.5h1.5M15 4.5h1.5" stroke="#A5B4FC" strokeWidth="0.3" />
-        
-        {/* Tech vents */}
-        <rect x="8.5" y="13" width="2" height="0.5" rx="0.2" fill="#818CF8" />
-        <rect x="13.5" y="13" width="2" height="0.5" rx="0.2" fill="#818CF8" />
-        
-        {/* Indicator lights */}
-        <g className="pulse-light">
-          <circle cx="6" cy="5.5" r="0.25" fill="#34D399" />
-          <circle cx="18" cy="5.5" r="0.25" fill="#F87171" />
-          <circle cx="6" cy="13" r="0.25" fill="#60A5FA" />
-          <circle cx="18" cy="13" r="0.25" fill="#FBBF24" />
-        </g>
-        
-        {/* Small tech details */}
-        <rect x="9" y="4" width="2" height="0.3" rx="0.15" fill="#C4B5FD" />
-        <rect x="13" y="4" width="2" height="0.3" rx="0.15" fill="#C4B5FD" />
-      </g>
-      
-      {/* Ultra-realistic robot eyes with scanning effect */}
-      <g filter="url(#innerShadow)">
-        {/* Eye sockets */}
-        <rect x="6.5" y="6.5" width="4" height="3" rx="1.5" ry="1.5" fill="#312E81" stroke="#4338CA" strokeWidth="0.3" />
-        <rect x="13.5" y="6.5" width="4" height="3" rx="1.5" ry="1.5" fill="#312E81" stroke="#4338CA" strokeWidth="0.3" />
-        
-        {/* Eyes with animation */}
-        <g className="eye-scan">
-          <circle cx="8.5" cy="8" r="1.4" fill="url(#robotEye)" stroke="#3B82F6" strokeWidth="0.2" />
-          <circle cx="15.5" cy="8" r="1.4" fill="url(#robotEye)" stroke="#3B82F6" strokeWidth="0.2" />
-          
-          {/* Eye glow and scanner effect */}
-          <circle className="glow-effect" cx="8.5" cy="8" r="2" fill="url(#eyeGlow)" />
-          <circle className="glow-effect" cx="15.5" cy="8" r="2" fill="url(#eyeGlow)" />
-          
-          {/* Scanning lines */}
-          <g className="scan-line">
-            <line x1="7.5" y1="8" x2="9.5" y2="8" stroke="#BFDBFE" strokeWidth="0.1" opacity="0.7" />
-            <line x1="14.5" y1="8" x2="16.5" y2="8" stroke="#BFDBFE" strokeWidth="0.1" opacity="0.7" />
-          </g>
-          
-          {/* Inner eye details */}
-          <circle cx="8.5" cy="8" r="0.7" fill="#DBEAFE" opacity="0.9" />
-          <circle cx="15.5" cy="8" r="0.7" fill="#DBEAFE" opacity="0.9" />
-          <circle cx="8.8" cy="7.7" r="0.3" fill="#FFFFFF" />
-          <circle cx="15.8" cy="7.7" r="0.3" fill="#FFFFFF" />
-        </g>
-      </g>
-      
-      {/* Advanced robot mouth and expression system */}
-      <g>
-        {/* Mouth panel */}
-        <rect x="8" y="11" width="8" height="1.8" rx="0.9" ry="0.9" fill="#312E81" stroke="#4338CA" strokeWidth="0.2" />
-        
-        {/* Sound visualizer bars */}
-        <g className="pulse-light">
-          <rect x="8.8" y="11.5" width="0.5" height="0.8" rx="0.2" fill="#60A5FA" opacity="0.8" />
-          <rect x="9.8" y="11.3" width="0.5" height="1.2" rx="0.2" fill="#60A5FA" opacity="0.8" />
-          <rect x="10.8" y="11.7" width="0.5" height="0.4" rx="0.2" fill="#60A5FA" opacity="0.8" />
-          <rect x="11.8" y="11.4" width="0.5" height="1" rx="0.2" fill="#60A5FA" opacity="0.8" />
-          <rect x="12.8" y="11.7" width="0.5" height="0.4" rx="0.2" fill="#60A5FA" opacity="0.8" />
-          <rect x="13.8" y="11.3" width="0.5" height="1.2" rx="0.2" fill="#60A5FA" opacity="0.8" />
-          <rect x="14.8" y="11.5" width="0.5" height="0.8" rx="0.2" fill="#60A5FA" opacity="0.8" />
-        </g>
-      </g>
-      
-      {/* Advanced antenna system with energy emission */}
-      <g>
-        {/* Antenna base */}
-        <rect x="11" y="3" width="2" height="0.7" rx="0.3" ry="0.3" fill="#4F46E5" stroke="#4338CA" strokeWidth="0.2" />
-        
-        {/* Antenna shaft */}
-        <rect x="11.3" y="1.5" width="1.4" height="1.5" rx="0.7" ry="0.7" fill="#6366F1" stroke="#4338CA" strokeWidth="0.2" />
-        
-        {/* Antenna tip with energy emission */}
-        <g className="antenna-glow">
-          <circle cx="12" cy="1.2" r="0.7" fill="#A5B4FC" filter="url(#neonGlow)" />
-        </g>
-        
-        <circle cx="12" cy="1.2" r="0.5" fill="#C4B5FD" stroke="#4338CA" strokeWidth="0.1" />
-        <circle cx="12" cy="1.2" r="0.2" fill="#FFFFFF" opacity="0.9" />
-        
-        {/* Energy particles */}
-        <g className="sparkle-effect">
-          <circle cx="12" cy="0.8" r="0.15" fill="#FFFFFF" />
-          <circle cx="11.7" cy="1" r="0.1" fill="#FFFFFF" />
-          <circle cx="12.3" cy="1" r="0.1" fill="#FFFFFF" />
-        </g>
-      </g>
-      
-      {/* Ultra-detailed neck mechanism */}
-      <g>
-        {/* Main neck columns with mechanical details */}
-        <rect x="8.5" y="15" width="1.5" height="2" rx="0.3" fill="#6366F1" stroke="#4338CA" strokeWidth="0.2" />
-        <rect x="14" y="15" width="1.5" height="2" rx="0.3" fill="#6366F1" stroke="#4338CA" strokeWidth="0.2" />
-        
-        {/* Mechanical details */}
-        <line x1="9" y1="15.5" x2="9.5" y2="15.5" stroke="#A5B4FC" strokeWidth="0.2" />
-        <line x1="9" y1="16.5" x2="9.5" y2="16.5" stroke="#A5B4FC" strokeWidth="0.2" />
-        <line x1="14.5" y1="15.5" x2="15" y2="15.5" stroke="#A5B4FC" strokeWidth="0.2" />
-        <line x1="14.5" y1="16.5" x2="15" y2="16.5" stroke="#A5B4FC" strokeWidth="0.2" />
-        
-        {/* Neck cables */}
-        <path d="M10 15.5 C11 16, 13 16, 14 15.5" stroke="#4338CA" strokeWidth="0.3" fill="none" />
-        <path d="M10 16.5 C11 16, 13 16, 14 16.5" stroke="#4338CA" strokeWidth="0.3" fill="none" />
-      </g>
-      
-      {/* Advanced robot body with power core */}
-      <g filter="url(#innerShadow)">
-        {/* Main body casing */}
-        <rect x="6" y="17" width="12" height="5.5" rx="2" ry="2" fill="url(#robotHead)" stroke="#4338CA" strokeWidth="0.3" />
-        
-        {/* Metallic texture overlay */}
-        <rect x="6" y="17" width="12" height="5.5" rx="2" ry="2" fill="url(#metalTexture)" fillOpacity="0.1" />
-        
-        {/* Body panel seams */}
-        <line x1="12" y1="17" x2="12" y2="22.5" stroke="#4338CA" strokeWidth="0.2" opacity="0.5" />
-        <line x1="6" y1="19.5" x2="18" y2="19.5" stroke="#4338CA" strokeWidth="0.2" opacity="0.5" />
-        
-        {/* Highlight for 3D effect */}
-        <path d="M7 18 L17 18" stroke="url(#robotHeadHighlight)" strokeWidth="0.5" opacity="0.8" />
-      </g>
-      
-      {/* Power core and control panel */}
-      <g>
-        {/* Central power core */}
-        <circle cx="12" cy="19" r="1.2" fill="url(#powerCore)" className="pulse-light" />
-        <circle cx="12" cy="19" r="0.8" fill="#FBBF24" opacity="0.9" />
-        <circle cx="12" cy="19" r="0.4" fill="#FEF3C7" className="hue-shift" />
-        
-        {/* Control buttons */}
-        <g className="pulse-light">
-          <circle cx="9" cy="19" r="0.6" fill="#A5B4FC" stroke="#4338CA" strokeWidth="0.2" />
-          <circle cx="15" cy="19" r="0.6" fill="#A5B4FC" stroke="#4338CA" strokeWidth="0.2" />
-          <circle cx="9" cy="19" r="0.3" fill="#C4B5FD" />
-          <circle cx="15" cy="19" r="0.3" fill="#C4B5FD" />
-        </g>
-        
-        {/* Control panel lights */}
-        <rect x="8" cy="21" width="0.7" height="0.7" rx="0.2" fill="#F87171" className="pulse-light" />
-        <rect x="9.2" cy="21" width="0.7" height="0.7" rx="0.2" fill="#34D399" className="pulse-light" />
-        <rect x="10.4" cy="21" width="0.7" height="0.7" rx="0.2" fill="#FBBF24" className="pulse-light" />
-        
-        <rect x="12.9" cy="21" width="0.7" height="0.7" rx="0.2" fill="#60A5FA" className="pulse-light" />
-        <rect x="14.1" cy="21" width="0.7" height="0.7" rx="0.2" fill="#A78BFA" className="pulse-light" />
-        <rect x="15.3" cy="21" width="0.7" height="0.7" rx="0.2" fill="#EC4899" className="pulse-light" />
-      </g>
-      
-      {/* Advanced mechanical arms with rotating joints */}
-      <g>
-        {/* Arm joints with mechanical details */}
-        <g className="gear-rotate">
-          <circle cx="5.5" cy="20" r="1.2" fill="#6366F1" stroke="#4338CA" strokeWidth="0.2" />
-          <circle cx="5.5" cy="20" r="0.8" fill="#818CF8" stroke="#4338CA" strokeWidth="0.15" />
-          <path d="M5.1 19.6 L5.9 20.4 M5.1 20.4 L5.9 19.6" stroke="#4F46E5" strokeWidth="0.2" />
-          <circle cx="5.5" cy="20" r="0.4" fill="#A5B4FC" />
-          <circle cx="5.5" cy="20" r="0.2" fill="#C4B5FD" />
-        </g>
-        
-        <g className="gear-rotate-reverse">
-          <circle cx="18.5" cy="20" r="1.2" fill="#6366F1" stroke="#4338CA" strokeWidth="0.2" />
-          <circle cx="18.5" cy="20" r="0.8" fill="#818CF8" stroke="#4338CA" strokeWidth="0.15" />
-          <path d="M18.1 19.6 L18.9 20.4 M18.1 20.4 L18.9 19.6" stroke="#4F46E5" strokeWidth="0.2" />
-          <circle cx="18.5" cy="20" r="0.4" fill="#A5B4FC" />
-          <circle cx="18.5" cy="20" r="0.2" fill="#C4B5FD" />
-        </g>
-        
-        {/* Arm shafts with mechanical details */}
-        <path d="M6 18.5 L6.7 20" stroke="#4F46E5" strokeWidth="0.8" fill="none" />
-        <path d="M18 18.5 L17.3 20" stroke="#4F46E5" strokeWidth="0.8" fill="none" />
-        
-        {/* Hydraulic elements */}
-        <path d="M6.3 18.8 L6.7 19.7" stroke="#A5B4FC" strokeWidth="0.2" fill="none" />
-        <path d="M17.7 18.8 L17.3 19.7" stroke="#A5B4FC" strokeWidth="0.2" fill="none" />
-      </g>
-      
-      {/* Energy flow effects */}
-      <g className="hue-shift" opacity="0.5">
-        <path d="M7 4.5 Q12 3, 17 4.5" stroke="#C4B5FD" strokeWidth="0.15" fill="none" />
-        <path d="M7 14 Q12 15.5, 17 14" stroke="#C4B5FD" strokeWidth="0.15" fill="none" />
-        <path d="M7 19.5 Q12 18, 17 19.5" stroke="#FBBF24" strokeWidth="0.15" fill="none" />
-      </g>
-      
-      {/* Holographic projections */}
-      <g className="hue-shift" filter="url(#holographicEffect)" opacity="0.4">
-        <circle cx="12" cy="3" r="0.3" fill="#A5B4FC" />
-        <circle cx="9" cy="6" r="0.2" fill="#A5B4FC" />
-        <circle cx="15" cy="6" r="0.2" fill="#A5B4FC" />
-        <circle cx="12" cy="16.5" r="0.3" fill="#A5B4FC" />
-      </g>
-      
-      {/* Particle effects */}
-      <g className="sparkle-effect">
-        <circle cx="12" cy="0.8" r="0.15" fill="#FFFFFF" />
-        <circle cx="4.5" cy="19" r="0.1" fill="#FFFFFF" />
-        <circle cx="19.5" cy="19" r="0.1" fill="#FFFFFF" />
-        <circle cx="12" cy="21.5" r="0.1" fill="#FFFFFF" />
-      </g>
-    </svg>
-  );import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { 
   BarChart, 
   Award, 
@@ -352,76 +35,39 @@ const animationStyles = `
   }
   
   /* Rainbow gradient animation for the bot icon */
-  /* Ultra-sophisticated 3D animation effects */
+  /* Enhanced 3D animation effects */
   @keyframes floatingRobot {
     0% { transform: translateY(0px) rotate(0deg); }
-    20% { transform: translateY(-4px) rotate(1deg); }
-    40% { transform: translateY(-2px) rotate(0.5deg); }
-    60% { transform: translateY(2px) rotate(-0.5deg); }
-    80% { transform: translateY(4px) rotate(-1deg); }
+    25% { transform: translateY(-3px) rotate(1deg); }
+    50% { transform: translateY(0px) rotate(0deg); }
+    75% { transform: translateY(3px) rotate(-1deg); }
     100% { transform: translateY(0px) rotate(0deg); }
   }
   
   @keyframes glowPulse {
-    0% { opacity: 0.4; filter: blur(1px); }
-    25% { opacity: 0.6; filter: blur(2px); }
-    50% { opacity: 0.8; filter: blur(3px); }
-    75% { opacity: 0.6; filter: blur(2px); }
-    100% { opacity: 0.4; filter: blur(1px); }
+    0% { opacity: 0.4; }
+    50% { opacity: 0.7; }
+    100% { opacity: 0.4; }
   }
   
   @keyframes eyeScan {
-    0% { transform: translateX(-1px) scaleY(1); }
-    10% { transform: translateX(-0.5px) scaleY(1); }
-    20% { transform: translateX(0px) scaleY(1); }
-    30% { transform: translateX(0.5px) scaleY(1); }
-    40% { transform: translateX(1px) scaleY(1); }
-    42% { transform: translateX(1px) scaleY(0.1); }
-    44% { transform: translateX(1px) scaleY(1); }
-    50% { transform: translateX(0.5px) scaleY(1); }
-    60% { transform: translateX(0px) scaleY(1); }
-    70% { transform: translateX(-0.5px) scaleY(1); }
-    80% { transform: translateX(-1px) scaleY(1); }
-    100% { transform: translateX(-1px) scaleY(1); }
+    0% { transform: translateX(-1px); }
+    50% { transform: translateX(1px); }
+    100% { transform: translateX(-1px); }
+  }
+  
+  @keyframes blinkEffect {
+    0% { transform: scaleY(1); }
+    49% { transform: scaleY(1); }
+    50% { transform: scaleY(0.1); }
+    51% { transform: scaleY(1); }
+    100% { transform: scaleY(1); }
   }
   
   @keyframes antennaGlow {
-    0% { opacity: 0.6; filter: blur(1px) brightness(1); }
-    25% { opacity: 0.8; filter: blur(2px) brightness(1.2); }
-    50% { opacity: 1; filter: blur(3px) brightness(1.5); }
-    75% { opacity: 0.8; filter: blur(2px) brightness(1.2); }
-    100% { opacity: 0.6; filter: blur(1px) brightness(1); }
-  }
-  
-  @keyframes rotateGear {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-  
-  @keyframes pulseLight {
-    0% { opacity: 0.3; }
-    50% { opacity: 1; }
-    100% { opacity: 0.3; }
-  }
-  
-  @keyframes scanLine {
-    0% { transform: translateY(-3px); opacity: 0; }
-    20% { transform: translateY(-1.5px); opacity: 1; }
-    80% { transform: translateY(1.5px); opacity: 1; }
-    100% { transform: translateY(3px); opacity: 0; }
-  }
-  
-  @keyframes hueRotate {
-    0% { filter: hue-rotate(0deg); }
-    100% { filter: hue-rotate(360deg); }
-  }
-  
-  @keyframes sparkle {
-    0% { opacity: 0; transform: scale(0.8) rotate(0deg); }
-    20% { opacity: 1; transform: scale(1.2) rotate(0deg); }
-    50% { opacity: 0.8; transform: scale(1) rotate(180deg); }
-    80% { opacity: 1; transform: scale(1.2) rotate(360deg); }
-    100% { opacity: 0; transform: scale(0.8) rotate(360deg); }
+    0% { opacity: 0.6; filter: blur(1px); }
+    50% { opacity: 1; filter: blur(2px); }
+    100% { opacity: 0.6; filter: blur(1px); }
   }
   
   @keyframes rainbowAnimation {
@@ -446,43 +92,19 @@ const animationStyles = `
   }
   
   .robot-float {
-    animation: floatingRobot 8s ease-in-out infinite;
+    animation: floatingRobot 4s ease-in-out infinite;
   }
   
   .eye-scan {
-    animation: eyeScan 4s ease-in-out infinite;
+    animation: eyeScan 3s ease-in-out infinite, blinkEffect 5s ease-in-out infinite;
   }
   
   .glow-effect {
-    animation: glowPulse 3s ease-in-out infinite;
-  }
-  
-  .gear-rotate {
-    animation: rotateGear 8s linear infinite;
-  }
-  
-  .gear-rotate-reverse {
-    animation: rotateGear 6s linear infinite reverse;
+    animation: glowPulse 2s ease-in-out infinite;
   }
   
   .antenna-glow {
-    animation: antennaGlow 2s ease-in-out infinite;
-  }
-  
-  .pulse-light {
-    animation: pulseLight 1.5s ease-in-out infinite;
-  }
-  
-  .scan-line {
-    animation: scanLine 2s ease-in-out infinite;
-  }
-  
-  .hue-shift {
-    animation: hueRotate 10s linear infinite;
-  }
-  
-  .sparkle-effect {
-    animation: sparkle 2s ease-in-out infinite;
+    animation: antennaGlow 1.5s ease-in-out infinite;
   }
 `;
 
@@ -1058,11 +680,7 @@ const FloatingResumeScore = ({ resumeInfo }) => {
       >
         <button 
           onClick={() => setExpanded(true)}
-          className={`w-16 h-16 rounded-full shadow-lg flex items-center justify-center hover:shadow-xl transition-all duration-300 ${animateButton ? 'scale-110' : 'scale-100'}`}
-          style={{
-            background: "linear-gradient(145deg, #eef2ff, #e0e7ff)",
-            boxShadow: "5px 5px 15px rgba(79, 70, 229, 0.15), -5px -5px 15px rgba(255, 255, 255, 0.8)"
-          }}
+          className={`w-16 h-16 rounded-full bg-gradient-to-br from-indigo-50 to-violet-50 shadow-lg flex items-center justify-center hover:shadow-xl transition-all duration-300 ${animateButton ? 'scale-110' : 'scale-100'} border-2 border-indigo-100`}
           aria-label="Open Resume Assistant"
         >
           <RainbowBotIcon />
@@ -1092,15 +710,7 @@ const FloatingResumeScore = ({ resumeInfo }) => {
           {/* Enhanced header with rainbow gradient background */}
           <div className="p-4 bg-gradient-to-r from-indigo-50 via-purple-50 to-violet-50 flex items-center justify-between border-b border-indigo-100">
             <div className="flex items-center gap-2">
-              <div className="p-2 rounded-full flex-shrink-0" style={{ 
-                width: "40px", 
-                height: "40px", 
-                display: "flex", 
-                alignItems: "center", 
-                justifyContent: "center", 
-                background: "linear-gradient(145deg, #eef2ff, #e0e7ff)",
-                boxShadow: "1px 1px 6px rgba(79, 70, 229, 0.1), -1px -1px 6px rgba(255, 255, 255, 0.7)"
-              }}>
+              <div className="p-2 rounded-full flex-shrink-0" style={{ width: "36px", height: "36px", display: "flex", alignItems: "center", justifyContent: "center", background: "linear-gradient(145deg, #f5f3ff, #ede9fe)" }}>
                 <RainbowBotIcon />
               </div>
               <div>

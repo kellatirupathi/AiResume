@@ -22,7 +22,7 @@ import { Button } from "@/components/ui/button";
 import { AIChatSession } from "@/Services/AiModel";
 import { toast } from "sonner";
 
-// Add custom CSS for fade-in-out animation
+// Add custom CSS for fade-in-out animation and rainbow gradient for the bot icon
 const animationStyles = `
   @keyframes fadeInOut {
     0% { opacity: 0; transform: translateY(-5px); }
@@ -32,6 +32,28 @@ const animationStyles = `
   }
   .animate-fade-in-out {
     animation: fadeInOut 1s ease-in-out;
+  }
+  
+  /* Rainbow gradient animation for the bot icon */
+  @keyframes rainbowAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
+  .rainbow-gradient {
+    background: linear-gradient(124deg, #fd7e97, #f9a470, #fad874, #a5e8b1, #80d0e6, #a6a1e6, #caa5e6);
+    background-size: 1800% 1800%;
+    animation: rainbowAnimation 15s ease infinite;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  
+  .rainbow-fill {
+    background: linear-gradient(124deg, #fd7e97, #f9a470, #fad874, #a5e8b1, #80d0e6, #a6a1e6, #caa5e6);
+    background-size: 1800% 1800%;
+    animation: rainbowAnimation 15s ease infinite;
   }
 `;
 
@@ -419,6 +441,82 @@ const FloatingResumeScore = ({ resumeInfo }) => {
   
   const scoreTextColor = getScoreColor(scoreData?.totalScore || 0).replace('bg-', 'text-');
 
+  // Custom SVG for advanced robot icon
+  const RainbowBotIcon = () => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="32"
+      height="32"
+      viewBox="0 0 24 24"
+      style={{ filter: "drop-shadow(0px 1px 2px rgba(0,0,0,0.2))" }}
+    >
+      {/* Base head shape with gradient */}
+      <defs>
+        <linearGradient id="robotHead" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#4F46E5" />
+          <stop offset="100%" stopColor="#7E22CE" />
+        </linearGradient>
+        <radialGradient id="robotEye" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+          <stop offset="0%" stopColor="#60A5FA" />
+          <stop offset="80%" stopColor="#3B82F6" />
+          <stop offset="100%" stopColor="#2563EB" />
+        </radialGradient>
+        <linearGradient id="robotGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#C084FC" stopOpacity="0.7" />
+          <stop offset="100%" stopColor="#A855F7" stopOpacity="0.7" />
+        </linearGradient>
+      </defs>
+      
+      {/* Glow effect behind robot */}
+      <ellipse cx="12" cy="12" rx="11" ry="10" fill="url(#robotGlow)" opacity="0.4" />
+      
+      {/* Robot head - rounded with metallic gradient */}
+      <rect x="3.5" y="4" width="17" height="11" rx="3" ry="3" fill="url(#robotHead)" stroke="#6366F1" strokeWidth="0.5" />
+      
+      {/* Head details - circuit-like patterns */}
+      <path d="M5 7h2M5 9h1M18 7h2M18 9h1M7 5.5h3M14 5.5h3" stroke="#C4B5FD" strokeWidth="0.5" opacity="0.8" />
+      
+      {/* Robot eyes - glowing with inner details */}
+      <circle cx="9" cy="8.5" r="1.8" fill="url(#robotEye)" stroke="#2563EB" strokeWidth="0.3" />
+      <circle cx="15" cy="8.5" r="1.8" fill="url(#robotEye)" stroke="#2563EB" strokeWidth="0.3" />
+      
+      {/* Eye details */}
+      <circle cx="9" cy="8.5" r="0.9" fill="#FFFFFF" opacity="0.8" />
+      <circle cx="15" cy="8.5" r="0.9" fill="#FFFFFF" opacity="0.8" />
+      <circle cx="9.4" cy="8.1" r="0.3" fill="#FFFFFF" />
+      <circle cx="15.4" cy="8.1" r="0.3" fill="#FFFFFF" />
+      
+      {/* Robot mouth - advanced with lights */}
+      <path d="M8 12h8" stroke="#C4B5FD" strokeWidth="0.7" />
+      <path d="M8 12.5a4 3 0 0 0 8 0" stroke="#8B5CF6" strokeWidth="0.7" fill="none" />
+      <circle cx="9" cy="12" r="0.3" fill="#A78BFA" />
+      <circle cx="12" cy="12.7" r="0.3" fill="#A78BFA" />
+      <circle cx="15" cy="12" r="0.3" fill="#A78BFA" />
+      
+      {/* Robot antenna */}
+      <path d="M12 4V2.5" stroke="#8B5CF6" strokeWidth="1" />
+      <circle cx="12" cy="1.8" r="0.8" fill="#A78BFA" stroke="#6366F1" strokeWidth="0.3" />
+      <circle cx="12" cy="1.8" r="0.3" fill="#FFFFFF" opacity="0.8" />
+      
+      {/* Robot neck */}
+      <path d="M10 15v1.5M14 15v1.5" stroke="#6366F1" strokeWidth="1.5" />
+      
+      {/* Robot body */}
+      <rect x="7" y="16.5" width="10" height="5" rx="1" ry="1" fill="url(#robotHead)" stroke="#6366F1" strokeWidth="0.5" />
+      
+      {/* Body details */}
+      <path d="M9 18h6M9 20h6" stroke="#C4B5FD" strokeWidth="0.7" />
+      <circle cx="10" cy="19" r="0.5" fill="#A78BFA" />
+      <circle cx="12" cy="19" r="0.5" fill="#60A5FA" />
+      <circle cx="14" cy="19" r="0.5" fill="#A78BFA" />
+      
+      {/* Arms */}
+      <path d="M7 18L5 20M17 18L19 20" stroke="#6366F1" strokeWidth="1" />
+      <circle cx="4.5" cy="20.5" r="1" fill="#8B5CF6" stroke="#6366F1" strokeWidth="0.3" />
+      <circle cx="19.5" cy="20.5" r="1" fill="#8B5CF6" stroke="#6366F1" strokeWidth="0.3" />
+    </svg>
+  );
+
   return (
     <>
       {/* Add animation styles to head */}
@@ -430,10 +528,10 @@ const FloatingResumeScore = ({ resumeInfo }) => {
       >
         <button 
           onClick={() => setExpanded(true)}
-          className={`w-16 h-16 rounded-full bg-gradient-to-r from-primary to-primary/80 shadow-lg flex items-center justify-center hover:shadow-xl transition-all duration-300 ${animateButton ? 'scale-110' : 'scale-100'}`}
+          className={`w-16 h-16 rounded-full bg-gradient-to-br from-indigo-50 to-violet-50 shadow-lg flex items-center justify-center hover:shadow-xl transition-all duration-300 ${animateButton ? 'scale-110' : 'scale-100'} border-2 border-indigo-100`}
           aria-label="Open Resume Assistant"
         >
-          <Bot className="h-7 w-7 text-white" />
+          <RainbowBotIcon />
           <div className="absolute -top-1 -right-1 w-8 h-8 rounded-full bg-white shadow-md border border-gray-200 flex items-center justify-center">
             <span className={`text-xs font-bold ${scoreTextColor}`}>{scoreData?.totalScore || 0}</span>
           </div>
@@ -457,11 +555,11 @@ const FloatingResumeScore = ({ resumeInfo }) => {
         style={{ maxWidth: "calc(100vw - 32px)" }} // Ensures it doesn't overflow on smaller screens
       >
         <div className="bg-white rounded-t-xl md:rounded-xl shadow-xl border border-gray-200 w-full md:w-[450px] lg:w-[550px] xl:w-[650px] max-h-[75vh] flex flex-col overflow-hidden">
-          {/* Enhanced header with gradient background */}
-          <div className="bg-gradient-to-r from-primary to-primary/80 p-4 flex items-center justify-between text-white">
+          {/* Enhanced header with rainbow gradient background */}
+          <div className="p-4 bg-gradient-to-r from-indigo-50 via-purple-50 to-violet-50 flex items-center justify-between border-b border-indigo-100">
             <div className="flex items-center gap-2">
-              <div className="p-2 bg-white bg-opacity-20 rounded-full">
-                <Bot className="h-6 w-6" />
+              <div className="p-2 rounded-full flex-shrink-0" style={{ width: "36px", height: "36px", display: "flex", alignItems: "center", justifyContent: "center", background: "linear-gradient(145deg, #f5f3ff, #ede9fe)" }}>
+                <RainbowBotIcon />
               </div>
               <div>
                 <h3 className="font-semibold">Resume Assistant</h3>
@@ -484,7 +582,7 @@ const FloatingResumeScore = ({ resumeInfo }) => {
               <Button 
                 size="sm" 
                 variant="ghost"
-                className="h-8 w-8 p-0 rounded-full bg-white bg-opacity-10 hover:bg-opacity-20 text-white"
+                className="h-8 w-8 p-0 rounded-full bg-gray-200 hover:bg-gray-300 text-gray-700"
                 onClick={() => setExpanded(false)}
               >
                 <X className="h-4 w-4" />
@@ -495,8 +593,8 @@ const FloatingResumeScore = ({ resumeInfo }) => {
           {/* Intro message in chat-like style */}
           <div className="p-4 border-b border-gray-100 bg-gray-50">
             <div className="flex items-start gap-3">
-              <div className="p-2 rounded-full bg-primary bg-opacity-10 flex-shrink-0">
-                <Bot className="h-5 w-5 text-primary" />
+              <div className="p-2 rounded-full rainbow-fill bg-opacity-10 flex-shrink-0">
+                <RainbowBotIcon />
               </div>
               <div className="text-sm">
                 <p className="text-gray-700">
@@ -529,7 +627,7 @@ const FloatingResumeScore = ({ resumeInfo }) => {
             {/* Section Scores - Enhanced with cards */}
             <div className="space-y-4">
               <h4 className="font-medium text-gray-700 text-sm flex items-center gap-2 px-1">
-                <BarChart className="h-4 w-4 text-primary" />
+                <BarChart className="h-4 w-4 rainbow-gradient" />
                 Section Scores
               </h4>
               
@@ -642,8 +740,8 @@ const FloatingResumeScore = ({ resumeInfo }) => {
             <span className="text-xs text-gray-500">Resume Assistant</span>
             <div className="flex items-center gap-1">
               <span className="text-xs text-gray-500">Powered by</span>
-              <Sparkles className="h-3 w-3 text-primary" />
-              <span className="text-xs font-medium text-primary">AI</span>
+              <Sparkles className="h-3 w-3 rainbow-gradient" />
+              <span className="text-xs font-medium rainbow-gradient">AI</span>
             </div>
           </div>
         </div>

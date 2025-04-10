@@ -80,6 +80,7 @@ const FloatingResumeScore = ({ resumeInfo }) => {
       education: 0,
       skills: 0,
       projects: 0,
+      certifications: 0, // Added certifications score
       totalScore: 0,
       feedback: []
     };
@@ -198,14 +199,36 @@ const FloatingResumeScore = ({ resumeInfo }) => {
       scores.projects = 0; // Set to 0 if no projects entries exist
     }
     
+    // Certifications - check entries and details
+    if (resumeInfo.certifications && resumeInfo.certifications.length > 0) {
+      const certCount = resumeInfo.certifications.length;
+      let certQuality = 0;
+      
+      resumeInfo.certifications.forEach(cert => {
+        let entryScore = 0;
+        if (cert.name && cert.name.trim()) entryScore += 35;
+        if (cert.issuer && cert.issuer.trim()) entryScore += 25;
+        if (cert.issueDate && cert.issueDate.trim()) entryScore += 15;
+        if (cert.expiryDate && cert.expiryDate.trim()) entryScore += 10;
+        if (cert.credentialId && cert.credentialId.trim()) entryScore += 15;
+        certQuality += entryScore / 100;
+      });
+      
+      const avgQuality = certQuality / certCount;
+      scores.certifications = Math.min(Math.round(avgQuality * 100), 100);
+    } else {
+      scores.certifications = 0; // Set to 0 if no certifications entries exist
+    }
+    
     // Calculate total score - weighted average of all sections
     const weights = {
       personal: 0.15,
       summary: 0.15,
-      experience: 0.25,
+      experience: 0.20,
       education: 0.15,
       skills: 0.15,
-      projects: 0.15
+      projects: 0.10,
+      certifications: 0.10 // Added certifications with weight
     };
     
     let totalWeightedScore = 0;
@@ -253,6 +276,13 @@ const FloatingResumeScore = ({ resumeInfo }) => {
       scores.feedback.push("Include projects to demonstrate your practical experience");
     } else if (scores.projects < 70) {
       scores.feedback.push("Add more details to your projects, including technologies used and your role");
+    }
+    
+    // Added feedback for certifications
+    if (!resumeInfo.certifications || resumeInfo.certifications.length === 0) {
+      scores.feedback.push("Include relevant certifications to validate your technical skills and knowledge");
+    } else if (scores.certifications < 70) {
+      scores.feedback.push("Provide more details for your certifications, including issuer and credential IDs");
     }
     
     return scores;
@@ -304,6 +334,11 @@ const FloatingResumeScore = ({ resumeInfo }) => {
       - Score 0% if completely empty
       - Otherwise score based on detail level, technology descriptions, and connection to skills
       
+      For Certifications:
+      - Score 0% if completely empty
+      - Otherwise score based on completeness of certification information, including name, issuer, dates, and credential ID
+      - Higher scores for recent, relevant certifications with complete details
+      
       Format your response exactly as a valid JSON object with the following structure:
       {
         "scores": {
@@ -313,6 +348,7 @@ const FloatingResumeScore = ({ resumeInfo }) => {
           "education": [0-100 number],
           "skills": [0-100 number],
           "projects": [0-100 number],
+          "certifications": [0-100 number],
           "totalScore": [0-100 number]
         },
         "analysis": {
@@ -322,7 +358,7 @@ const FloatingResumeScore = ({ resumeInfo }) => {
         "suggestions": [array of specific, actionable improvement suggestions]
       }
       
-      Ensure your scores are fair but realistic reflections of the resume quality. Remember to give a score of 0% to any completely empty sections. The overall totalScore should be a weighted average (personal 15%, summary 15%, experience 25%, education 15%, skills 15%, projects 15%).
+      Ensure your scores are fair but realistic reflections of the resume quality. Remember to give a score of 0% to any completely empty sections. The overall totalScore should be a weighted average (personal 15%, summary 15%, experience 20%, education 15%, skills 15%, projects 10%, certifications 10%).
       `;
       
       // Call AI API
@@ -401,9 +437,6 @@ const FloatingResumeScore = ({ resumeInfo }) => {
           <div className="absolute -top-1 -right-1 w-8 h-8 rounded-full bg-white shadow-md border border-gray-200 flex items-center justify-center">
             <span className={`text-xs font-bold ${scoreTextColor}`}>{scoreData?.totalScore || 0}</span>
           </div>
-          
-          {/* Small notification indicator */}
-          <div className="absolute -top-1 -left-1 w-4 h-4 rounded-full bg-red-500 border-2 border-white"></div>
           
           {/* Floating hint message */}
           {showHint && (
@@ -502,12 +535,13 @@ const FloatingResumeScore = ({ resumeInfo }) => {
               
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                 {[
-                  { name: "Personal", key: "personal", icon: <Award className="h-4 w-4" /> },
-                  { name: "Summary", key: "summary", icon: <Info className="h-4 w-4" /> },
+                  { name: "Personal", key: "personal", icon: <Info className="h-4 w-4" /> },
+                  { name: "Summary", key: "summary", icon: <FileCheck className="h-4 w-4" /> },
                   { name: "Experience", key: "experience", icon: <Briefcase className="h-4 w-4" /> },
                   { name: "Education", key: "education", icon: <GraduationCap className="h-4 w-4" /> },
                   { name: "Skills", key: "skills", icon: <CheckCircle className="h-4 w-4" /> },
-                  { name: "Projects", key: "projects", icon: <FolderGit className="h-4 w-4" /> }
+                  { name: "Projects", key: "projects", icon: <FolderGit className="h-4 w-4" /> },
+                  { name: "Certifications", key: "certifications", icon: <Award className="h-4 w-4" /> }
                 ].map((section) => (
                   <div key={section.key} className="bg-gray-50 rounded-lg p-3 border border-gray-100">
                     <div className="flex items-center gap-2 mb-2">

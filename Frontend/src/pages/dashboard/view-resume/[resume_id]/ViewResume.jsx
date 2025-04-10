@@ -7,7 +7,7 @@ import { addResumeData } from "@/features/resume/resumeFeatures";
 import { RWebShare } from "react-web-share";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
-
+import html2pdf from 'html2pdf.js';
 import { 
   Download, 
   Share, 

@@ -76,9 +76,9 @@ function ResumeForm() {
   const progressPercent = calculateProgress();
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 bg-gray-100 min-h-screen">
       {/* Progress bar at the very top */}
-      <div className="w-full bg-gray-100 h-1 rounded-full overflow-hidden">
+      <div className="w-full bg-gray-200 h-1 rounded-full overflow-hidden">
         <div 
           className="h-full bg-gradient-to-r from-primary to-blue-500 transition-all duration-700 ease-in-out"
           style={{ width: `${progressPercent}%` }}
@@ -89,14 +89,14 @@ function ResumeForm() {
       <div className="flex flex-col sm:flex-row justify-between gap-4 bg-white p-5 rounded-xl shadow-md border border-gray-100">
         <div className="flex items-center gap-3">
           <Link to="/dashboard">
-            <Button variant="outline" size="sm" className="flex items-center gap-1 hover:bg-primary hover:text-white transition-colors duration-300 px-2">
+            <Button variant="outline" size="sm" className="flex items-center gap-1 hover:bg-primary hover:text-white transition-colors duration-300 px-2 border-gray-200 text-gray-700">
               <HomeIcon className="h-4 w-4" /> 
               <span className="text-xs">Dashboard</span>
             </Button>
           </Link>
           <ThemeColor resumeInfo={resumeInfo}/> 
           <div className="hidden md:flex items-center gap-1 text-sm text-gray-500">
-            <CheckCircle2 className={`h-4 w-4 ${progressPercent === 100 ? 'text-green-500' : 'text-gray-300'}`} />
+            <CheckCircle2 className={`h-4 w-4 ${progressPercent === 100 ? 'text-green-500' : 'text-gray-600'}`} />
             <span>{progressPercent}% completed</span>
           </div>
         </div>
@@ -187,7 +187,7 @@ function ResumeForm() {
                   ? 'bg-primary' 
                   : idx < currentIndex 
                     ? 'bg-primary/40' 
-                    : 'bg-gray-200'
+                    : 'bg-gray-700'
               }`}
               onClick={() => setCurrentIndex(idx)}
             ></div>

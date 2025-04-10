@@ -139,6 +139,18 @@ function ThemeColor({ resumeInfo }) {
       name: "Split Frame",
       category: "creative",
       previewUrl: "https://res.cloudinary.com/dja7l3iq8/image/upload/v1743697141/npgbqssxd07j13tvopyj.png" 
+    },
+    {
+      id: "minimalist-pro",
+      name: "Minimalist Pro",
+      category: "professional",
+      previewUrl: "https://res.cloudinary.com/dja7l3iq8/image/upload/v1743962988/adaq8djiqcuiuka16ayt.png" // Replace with actual preview URL
+    },
+    {
+      id: "digital-card",
+      name: "Digital Card",
+      category: "modern",
+      previewUrl: "https://res.cloudinary.com/dja7l3iq8/image/upload/v1743963208/roye2ja2wmcsatv4rlcm.png" // Replace with actual preview URL
     }
   ];
 

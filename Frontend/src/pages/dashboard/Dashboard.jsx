@@ -30,9 +30,8 @@ function Dashboard() {
   const [viewMode, setViewMode] = useState("grid");
   const [searchQuery, setSearchQuery] = useState("");
   const [darkMode, setDarkMode] = useState(false);
-  const [showWelcome, setShowWelcome] = useState(true);
-  const [sortOption, setSortOption] = useState("newest");
   const [showSortOptions, setShowSortOptions] = useState(false);
+  const [sortOption, setSortOption] = useState("newest");
 
   const fetchAllResumeData = async () => {
     setIsLoading(true);
@@ -58,22 +57,15 @@ function Dashboard() {
   useEffect(() => {
     fetchAllResumeData();
     
-    // Hide welcome message after 5 seconds
-    const timer = setTimeout(() => {
-      setShowWelcome(false);
-    }, 5000);
-    
     // Check for dark mode preference
     const storedDarkMode = localStorage.getItem("prefersDarkMode");
     if (storedDarkMode === "true") {
       setDarkMode(true);
     } else if (storedDarkMode === null) {
-      // Check system preference if no stored preference
+      // Check for system preference if no stored preference
       const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
       setDarkMode(prefersDark);
     }
-    
-    return () => clearTimeout(timer);
   }, [user]);
 
   // Toggle dark mode and save preference
@@ -151,7 +143,7 @@ function Dashboard() {
     }
   };
 
-  // Floating elements animation
+  // Animation variants
   const floatingAnimation = {
     y: [0, -10, 0],
     transition: {
@@ -177,7 +169,7 @@ function Dashboard() {
       ? 'bg-gradient-to-br from-gray-900 via-indigo-950/30 to-purple-950/30 text-gray-200' 
       : 'bg-gradient-to-br from-blue-50 via-indigo-50/30 to-purple-50/20 text-gray-800'}`}
     >
-      {/* Advanced background with animated elements */}
+      {/* Background elements */}
       <div className="fixed inset-0 z-0 overflow-hidden">
         {/* Gradient blobs */}
         <div className="absolute top-20 right-10 w-96 h-96 bg-purple-400/10 dark:bg-purple-600/10 rounded-full blur-3xl"></div>
@@ -232,35 +224,6 @@ function Dashboard() {
       
       {/* Main content */}
       <div className="container mx-auto px-4 pt-16 pb-16 relative z-10 max-w-7xl">
-        {/* Welcome notification that slides down and fades out */}
-        <AnimatePresence>
-          {showWelcome && resumeList.length > 0 && (
-            <motion.div
-              initial={{ y: -50, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: -20, opacity: 0 }}
-              transition={{ type: "spring", stiffness: 100 }}
-              className={`mb-6 p-4 rounded-xl ${darkMode ? 'bg-indigo-900/40' : 'bg-indigo-50'} border ${darkMode ? 'border-indigo-700' : 'border-indigo-200'} backdrop-blur-sm flex items-center shadow-lg`}
-            >
-              <div className={`mr-4 h-10 w-10 rounded-full flex items-center justify-center ${darkMode ? 'bg-indigo-800' : 'bg-indigo-100'}`}>
-                <Sparkles className="h-5 w-5 text-indigo-500" />
-              </div>
-              <div className="flex-1">
-                <h3 className={`font-semibold ${darkMode ? 'text-indigo-200' : 'text-indigo-800'}`}>Welcome back to your resume dashboard!</h3>
-                <p className={`text-sm ${darkMode ? 'text-indigo-300' : 'text-indigo-600'}`}>Continue working on your professional journey</p>
-              </div>
-              <button 
-                onClick={() => setShowWelcome(false)}
-                className={`p-1.5 rounded-full ${darkMode ? 'hover:bg-indigo-800' : 'hover:bg-indigo-100'} transition-colors`}
-              >
-                <svg className="h-5 w-5 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
         {/* Header with site name and dark mode toggle */}
         <motion.div 
           variants={headerVariants}
@@ -295,8 +258,7 @@ function Dashboard() {
         <motion.div 
           className={`mb-8 rounded-2xl shadow-xl border ${darkMode 
             ? 'bg-gray-800/90 border-gray-700' 
-            : 'bg-white/90 border-gray-100'
-          } backdrop-blur-md overflow-hidden`}
+            : 'bg-white/90 border-gray-100'} backdrop-blur-md overflow-hidden`}
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.4 }}
@@ -310,9 +272,8 @@ function Dashboard() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className={`pl-10 w-full md:w-80 ${darkMode 
-                  ? 'bg-gray-700/60 border-gray-600 placeholder-gray-400 text-gray-200' 
-                  : 'bg-gray-50 border-gray-200'
-                } focus:border-emerald-500 focus:ring-emerald-500/30 rounded-xl`}
+                  ? 'bg-gray-700/60 border-gray-600 text-gray-200' 
+                  : 'bg-gray-50 border-gray-200'} rounded-xl`}
               />
             </div>
 
@@ -427,7 +388,7 @@ function Dashboard() {
               {/* New Resume button */}
               <Button
                 onClick={() => document.querySelector('.add-resume-trigger')?.click()}
-                className={`rounded-xl bg-gradient-to-r from-emerald-500 to-blue-600 text-white hover:from-emerald-600 hover:to-blue-700 shadow-md hover:shadow-lg transition-all px-6 py-2.5`}
+                className={`rounded-xl bg-gradient-to-r from-emerald-500 to-blue-600 text-white hover:from-emerald-600 hover:to-blue-700 shadow-md hover:shadow-lg transition-all`}
               >
                 <Plus className="h-4 w-4 mr-2" /> New Resume
               </Button>
@@ -510,13 +471,13 @@ function Dashboard() {
                 </div>
                 <div className="absolute inset-0 overflow-hidden rounded-full">
                   <motion.div 
-                    className="absolute top-0 right-0 bottom-0 left-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
                     animate={shimmerAnimation}
                   />
                 </div>
               </div>
               <p className={`${darkMode ? 'text-gray-300' : 'text-gray-600'} text-lg animate-pulse`}>
-                Loading your professional collection...
+                Loading your resumes...
               </p>
             </div>
           ) : (
@@ -586,7 +547,7 @@ function Dashboard() {
             >
               <motion.div 
                 animate={floatingAnimation}
-                className={`w-32 h-32 bg-gradient-to-br ${darkMode ? 'from-emerald-900/60 to-blue-900/60' : 'from-emerald-100 to-blue-100'} rounded-full flex items-center justify-center mx-auto mb-8 shadow-lg`}
+                className={`w-32 h-32 ${darkMode ? 'bg-gradient-to-br from-emerald-900/60 to-blue-900/60' : 'bg-gradient-to-br from-emerald-100 to-blue-100'} rounded-full flex items-center justify-center mx-auto mb-8 shadow-lg`}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className={`h-16 w-16 ${darkMode ? 'text-emerald-400' : 'text-emerald-600'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />

@@ -293,7 +293,7 @@ function ThemeColor({ resumeInfo }) {
               ) : (
                 <Layout className="h-4 w-4" style={{ color: selectedColor }} />
               )}
-              <span className="hidden sm:inline font-medium">Theme</span>
+              <span className="hidden sm:inline font-medium">Templates</span>
               <div 
                 className="h-3 w-3 rounded-full ml-1 ring-2 ring-white shadow-sm"
                 style={{ backgroundColor: selectedColor }}

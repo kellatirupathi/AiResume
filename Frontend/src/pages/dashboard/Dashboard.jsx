@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { getAllResumeData } from "@/Services/resumeAPI";
 import AddResume from "./components/AddResume";
 import ResumeCard from "./components/ResumeCard";
+import ATSScoreChecker from "./components/ATSScoreChecker";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   Search, 
@@ -16,7 +17,8 @@ import {
   FileText,
   LayoutDashboard,
   AlertCircle,
-  ChevronDown
+  ChevronDown,
+  PieChart
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -32,6 +34,7 @@ function Dashboard() {
   const [darkMode, setDarkMode] = useState(false);
   const [showSortOptions, setShowSortOptions] = useState(false);
   const [sortOption, setSortOption] = useState("newest");
+  const [showATSModal, setShowATSModal] = useState(false);
 
   const fetchAllResumeData = async () => {
     setIsLoading(true);
@@ -52,6 +55,17 @@ function Dashboard() {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleOpenATSChecker = () => {
+    if (resumeList.length === 0) {
+      toast.error("No resumes available", {
+        description: "Please create a resume first to use the ATS checker"
+      });
+      return;
+    }
+    
+    setShowATSModal(true);
   };
 
   useEffect(() => {
@@ -384,7 +398,16 @@ function Dashboard() {
                   </div>
                 )}
               </div>
-            
+              
+              {/* ATS Score Checker Button */}
+              <Button
+                onClick={handleOpenATSChecker}
+                disabled={isLoading || resumeList.length === 0}
+                className={`rounded-xl bg-gradient-to-r from-purple-500 to-indigo-600 text-white hover:from-purple-600 hover:to-indigo-700 shadow-md hover:shadow-lg transition-all`}
+              >
+                <PieChart className="h-4 w-4 mr-2" /> ATS Score Checker
+              </Button>
+              
               {/* New Resume button */}
               <Button
                 onClick={() => document.querySelector('.add-resume-trigger')?.click()}
@@ -452,6 +475,25 @@ function Dashboard() {
                         : "-"}
                     </div>
                     <div className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>Last Updated</div>
+                  </div>
+                </div>
+                
+                {/* New ATS Score Analytics Widget */}
+                <div className="flex items-center">
+                  <div className={`h-8 w-8 rounded-lg ${darkMode ? 'bg-purple-900/60' : 'bg-purple-100'} flex items-center justify-center mr-3`}>
+                    <PieChart className={`h-4 w-4 ${darkMode ? 'text-purple-400' : 'text-purple-600'}`} />
+                  </div>
+                  <div>
+                    <button 
+                      onClick={handleOpenATSChecker}
+                      className={`text-xl font-bold flex items-center ${darkMode ? 'text-purple-400 hover:text-purple-300' : 'text-purple-600 hover:text-purple-700'}`}
+                    >
+                      Check Score
+                      <svg className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </button>
+                    <div className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>ATS Compatibility</div>
                   </div>
                 </div>
               </div>
@@ -634,6 +676,14 @@ function Dashboard() {
           />
         </svg>
       </div>
+      
+      {/* ATS Score Checker Modal */}
+      <ATSScoreChecker
+        isOpen={showATSModal}
+        onClose={() => setShowATSModal(false)}
+        resumes={resumeList}
+        darkMode={darkMode}
+      />
     </div>
   );
 }
